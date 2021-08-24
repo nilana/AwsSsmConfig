@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using Amazon;
 
 namespace Microsoft.Configuration.ConfigurationBuilders
 {
@@ -14,11 +15,13 @@ namespace Microsoft.Configuration.ConfigurationBuilders
 
         static AwsSsmConfigBuilder()
         {
-            _client = new AmazonSimpleSystemsManagementClient();
+            _client = new AmazonSimpleSystemsManagementClient(RegionEndpoint.USEast2);
         }
 
         public override void Initialize(string name, NameValueCollection config)
         {
+            var name1 = config["ssmPrefix"];
+
             base.Initialize(name, config);
 
             if (config["ssmPrefix"] == null)
